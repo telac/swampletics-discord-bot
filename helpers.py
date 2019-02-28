@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 import requests
 
-HUNTER_LEVEL_IS_2 = "watch?v=iuJRi9_mplM"
+HUNTER_LEVEL_IS_2 = "watch?v=R-0y6ikXAss"
 
 def fetch_latest():
     url = "https://www.youtube.com/channel/UCs-w7E2HZWwXmjt9RTvBB_A/videos"

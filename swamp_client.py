@@ -1,4 +1,7 @@
 from discord.ext.commands import Bot
+from helpers import *
+import asyncio
+
 
 class SwampClient(Bot):
     def __init__(self, *args, **kwargs):

@@ -3,7 +3,7 @@ from swamp_client import SwampClient
 from time import sleep
 from datetime import datetime
 from helpers import *
-from discord.ext import commands
+
 
 BOT_PREFIX = ["!", "?"]
 client = SwampClient(command_prefix=BOT_PREFIX)
