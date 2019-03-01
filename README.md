@@ -1,15 +1,17 @@
-Probably one of the more useless bots ever made for discord. I have also never made a discord bot before.
+### About
 
-### requirements
+Useless bot for discord.
+
+### Requirements
 
 `requests` and `discord.py`
 
-### installation
+### Installation
 
 clone this repository, create a `conf.ini` file that contains the following:
 ```
 [swampletics]
-token=<your-token-goes-here>
+token=<your-discord-bot-token>
 ```
 
 ### How to run:
