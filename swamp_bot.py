@@ -1,26 +1,36 @@
 #!/usr/bin/env python
-from swamp_client import SwampClient
+import discord
+from discord.ext import commands
 from time import sleep
 from datetime import datetime, timedelta
 from helpers import *
+from random import choice
 
-
-BOT_PREFIX = ["!", "?"]
 WEDNESDAY = 2
+BOT_PREFIX = ["!", "?"]
 conf = config('swampletics')
-client = SwampClient(command_prefix=BOT_PREFIX, channel=conf['channel'])
+description = """
+a very useful bot
+"""
+bot = commands.Bot(command_prefix=BOT_PREFIX, description=description)
 
+@bot.event
+async def on_ready():
+    print('Logged in as')
+    print(bot.user.name)
+    print(bot.user.id)
+    print('------')
 
-@client.command(name="hunter")
-async def hunter():
+@bot.command(name="hunter")
+async def hunter(ctx):
     """
     get swampletics hunter level
     """
     hunter_level = str(get_stats()[22].split(",")[1])
-    await client.say('swampletics hunter level is currently {}'.format(hunter_level))
+    await ctx.send('swampletics hunter level is currently {}'.format(hunter_level))
 
-@client.command(name="swampletics")
-async def swampletics():
+@bot.command(name="swampletics")
+async def swampletics(ctx):
     """
     checks for new video
     """
@@ -28,46 +38,43 @@ async def swampletics():
     if is_new_video():
         msg = 'N E W V I D E O \n'
         msg += fetch_latest().replace('href="', 'https://youtube.com')
-    await client.say(msg)
+    await ctx.send(msg)
 
-@client.command(name="latest")
-async def latest():
+@bot.command(name="latest")
+async def latest(ctx):
     """
     posts link to the latest S W A M P L E T I C S video
     """
     msg = fetch_latest().replace('href="', 'https://youtube.com')
-    await client.say(msg)
+    await ctx.send(msg)
 
-@client.command(name="dopamine")
-async def dopamine():
+@bot.command(name="dopamine")
+async def dopamine(ctx):
     """
     posts pure dopamine to discord
     """
     msg = "https://vignette.wikia.nocookie.net/2007scape/images/2/2d/Lamp_detail.png/revision/latest?cb=20160707155240"
-    await client.say(msg)
+    await ctx.send(msg)
 
-@client.command(name="when")
-async def when():
+@bot.command(name="ez4ence")
+async def ez4ence(ctx):
+    """
+    cs go stuff
+    """
+    msg = "go b but then go a"
+    msg1 = "go a but then go b"
+    await ctx.send(choice([msg, msg1]))
+
+
+@bot.command(name="when")
+async def when(ctx):
     """
     days to next swampletics video
     """
     dt = (WEDNESDAY - datetime.today().weekday()) % 7
-    await client.say("{} days until next ＳＷＡＭＰＬＥＴＩＣＳ video".format(dt))
+    await ctx.send("{} days until next ＳＷＡＭＰＬＥＴＩＣＳ video (rip weekly videos)".format(dt))
 
-@client.event
-async def on_message(message):
-    msg = None
-    words = message.content.strip("?").split(" ")
-    if message.author == client.user:
-        return
-    if "day" in words and "swampletics" in words:
-        today = datetime.today().weekday()
-        if today == WEDNESDAY:
-            msg = 'ITS SWAMPLETICS DAY'.format(message)
-    if msg:
-        await client.send_message(message.channel, msg)
 
-    await client.process_commands(message)
 
 if __name__ == "__main__":
-    client.run(conf['token'])
+    bot.run(conf['token'])

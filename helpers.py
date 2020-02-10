@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 import requests
 
-HUNTER_LEVEL_IS_2 = "watch?v=R-0y6ikXAss"
+LATEST = "watch?v=TJUVf_F3QCk"
 
 def fetch_latest():
     url = "https://www.youtube.com/channel/UCs-w7E2HZWwXmjt9RTvBB_A/videos"
@@ -17,8 +17,11 @@ def get_stats():
 
 def is_new_video():
     latest = fetch_latest()
-    if HUNTER_LEVEL_IS_2 in latest:
+    if LATEST in latest:
         return False
+    with open("latest", "w") as _latest:
+        _latest.write(latest)
+
     return True
 
 def config(section, filename='conf.ini'):
