@@ -45,7 +45,7 @@ async def latest(ctx):
     """
     posts link to the latest S W A M P L E T I C S video
     """
-    msg = fetch_latest().replace('href="', 'https://youtube.com')
+    msg = "https://www.youtube.com/" + fetch_latest()
     await ctx.send(msg)
 
 @bot.command(name="dopamine")

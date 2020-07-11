@@ -1,14 +1,21 @@
 from configparser import ConfigParser
 import requests
+import re
 
 LATEST = "watch?v=TJUVf_F3QCk"
+REGEXP = "watch\?.{13}"
+
 
 def fetch_latest():
     url = "https://www.youtube.com/channel/UCs-w7E2HZWwXmjt9RTvBB_A/videos"
     r = requests.get(url)
     data = str(r.content).split(' ')
-    videos = [line for line in data if 'watch?' in line]
-    return videos[0].strip('"')
+    #print(data)
+    for line in data:
+        match = re.search(REGEXP, line)
+        if match:
+            return match.group(0)
+
 
 def get_stats():
     url = "https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player=swampletics"
